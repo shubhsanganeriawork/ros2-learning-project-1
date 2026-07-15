@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains the robotics simulations and applications I developed while following the course "ROS 2 for Beginners Level 2 - TF | URDF | RViz | Gazebo".
+This repository contains the robotics simulations and applications I developed while learning concepts from "ROS 2 for Beginners Level 2 - TF | URDF | RViz | Gazebo" Course.
 
 The project covers robot modeling, visualization, simulation, and package organization using modern ROS 2 tools.
 
