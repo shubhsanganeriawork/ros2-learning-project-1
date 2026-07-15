@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="arm_base_link_length" value="0.02"/>
+    <xacro:property name="arm_base_link_radius" value="0.05"/>
+
+    <xacro:property name="arm_shoulder_link_length" value="0.04"/>
+    <xacro:property name="arm_shoulder_link_width" value="0.04"/>
+    <xacro:property name="arm_shoulder_link_height" value="0.5"/>
+
+    <xacro:property name="arm_elbow_link_length" value="0.04"/>
+    <xacro:property name="arm_elbow_link_width" value="0.04"/>
+    <xacro:property name="arm_elbow_link_height" value="0.4"/>
+
+<!--                     LINKS                        -->
+
+    <link name="arm_base_link">
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${arm_base_link_radius}" length="${arm_base_link_length}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="${arm_base_link_radius}" length="${arm_base_link_length}"/>
+            </geometry>
+        </collision>
+        
+        <xacro:sphere_inertial mass="1.0" r="${arm_base_link_radius}" o_xyz="0 0 0" o_rpy="0 0 0" />
+    </link>
+
+    <link name="arm_shoulder_link">
+        <visual name="">
+            <origin xyz="0.0 0.0 ${arm_shoulder_link_height / 2.0}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${arm_shoulder_link_length} ${arm_shoulder_link_width} ${arm_shoulder_link_height}"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${arm_shoulder_link_height / 2.0}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${arm_shoulder_link_length} ${arm_shoulder_link_width} ${arm_shoulder_link_height}"/>
+            </geometry>
+        </collision>
+        
+        <xacro:box_inertial mass="1.0"
+                            l="${arm_shoulder_link_length}"
+                            w="${arm_shoulder_link_width}"
+                            h="${arm_shoulder_link_height}"
+                            o_xyz="0.0 0.0 ${arm_shoulder_link_height / 2.0}"
+                            o_rpy="0 0 0" />
+
+    </link>
+
+    <link name="arm_elbow_link">
+        <visual name="">
+            <origin xyz="0.0 0.0 ${arm_elbow_link_height/2}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${arm_elbow_link_length} ${arm_elbow_link_width} ${arm_elbow_link_height}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 ${arm_elbow_link_height/2}" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${arm_elbow_link_length} ${arm_elbow_link_width} ${arm_elbow_link_height}"/>
+            </geometry>
+        </collision>
+        
+        <xacro:box_inertial mass="0.5"
+                            l="${arm_elbow_link_length}"
+                            w="${arm_elbow_link_width}"
+                            h="${arm_elbow_link_height}"
+                            o_xyz="0.0 0.0 ${arm_elbow_link_height/2}"
+                            o_rpy="0 0 0" />
+    </link>
+
+<!--                                              JOINTS                                          -->
+
+    <joint name="arm_base_arm_shoulder" type="revolute">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="arm_base_link"/>
+        <child link="arm_shoulder_link"/>
+        <axis xyz="0.0 1.0 0.0"/>
+        <limit lower="0.0" upper="${pi / 2.0}" effort="100.0" velocity="1.0"/>
+        <dynamics friction="0.3" damping="0.5" />
+    </joint>
+
+    <joint name="arm_shoulder_arm_elbow" type="revolute">
+        <origin xyz="0.0 0.0 ${arm_shoulder_link_height}" rpy="0.0 0.0 0.0"/>
+        <parent link="arm_shoulder_link"/>
+        <child link="arm_elbow_link"/>
+        <axis xyz="0.0 1.0 0.0"/>
+        <limit lower="0.0" upper="${pi / 2.0}" effort="100.0" velocity="1.0"/>
+        <dynamics friction="0.3" damping="0.5" />
+    </joint>
+</robot>

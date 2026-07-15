@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot name="first_robo"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="common_properties.xacro" />
+    <!-- We include common_properties.xacro (the material xacro file
+     in this main xacro file so that we dont have to mention it in
+     every "child" xacro file; i.e. mobile_base.xacro etc.) -->
+    <xacro:include filename="mobile_base.xacro" />
+    <xacro:include filename="mobile_base_gz.xacro" />
+    <xacro:include filename="camera.xacro" />
+
+    <xacro:include filename="robot_arm.xacro" />
+    <xacro:include filename="robot_arm_gz.xacro" />
+
+    <joint name="robot_arm_mobile_base" type="revolute">
+        <origin xyz="${base_length/4} 0.0 ${(base_height + arm_base_link_length) / 2}" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="arm_base_link"/>
+        <axis xyz="0.0 0.0 1.0"/>
+        <limit lower="${-pi / 2.0}" upper="${pi / 2.0}" effort="50.0" velocity="1.0"/>
+        <dynamics friction="0.3" damping="0.5" />
+    </joint>
+</robot>
