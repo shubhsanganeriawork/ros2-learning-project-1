@@ -1,5 +1,9 @@
 # ROS 2 Robotics Learning Project
 
+<p align="center">
+  <img src="media/ROS_Project.gif" alt="Robot Demo" width="800">
+</p>
+
 ## Overview
 
 This repository contains the robotics simulations and applications I developed while learning concepts from "ROS 2 for Beginners Level 2 - TF | URDF | RViz | Gazebo" Course.
