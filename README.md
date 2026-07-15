@@ -1,10 +1,3 @@
-RRRRR    OOOOO    SSSSS      22222
-R    R  O     O  S          2    2
-RRRRR   O     O   SSSS          2
-R   R   O     O       S        2
-R    R   OOOOO   SSSSS       22222
-
-
 # ROS 2 Robotics Learning Project
 
 ## Overview
